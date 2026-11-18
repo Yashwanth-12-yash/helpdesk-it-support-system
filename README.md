@@ -1,10 +1,14 @@
 # 🎫 HelpDesk – IT Support & Ticket Management System
 
-\<p align="center">   \<strong>An enterprise-style IT HelpDesk platform for managing support tickets, teams, departments, SLAs, and AI-powered assistance.\</strong> \</p>
+**An enterprise-style IT HelpDesk platform for managing support tickets, teams, departments, SLAs, and AI-powered assistance.**
 
-\<p align="center">   \<img src="[https://img.shields.io/badge/Python-3.12-blue?logo=python](https://img.shields.io/badge/Python-3.12-blue?logo=python)" alt="Python"/>   \<img src="[https://img.shields.io/badge/Django-5.1.4-green?logo=django](https://img.shields.io/badge/Django-5.1.4-green?logo=django)" alt="Django"/>   \<img src="[https://img.shields.io/badge/React-18-61DAFB?logo=react](https://img.shields.io/badge/React-18-61DAFB?logo=react)" alt="React"/>   \<img src="[https://img.shields.io/badge/MySQL-8.0-orange?logo=mysql](https://img.shields.io/badge/MySQL-8.0-orange?logo=mysql)" alt="MySQL"/>   \<img src="[https://img.shields.io/badge/AI-Google%20Gemini-blueviolet](https://img.shields.io/badge/AI-Google%20Gemini-blueviolet)" alt="Google Gemini"/> \</p>
+![Python](https://img.shields.io/badge/Python-3.12-blue?logo=python)
+![Django](https://img.shields.io/badge/Django-5.1.4-green?logo=django)
+![React](https://img.shields.io/badge/React-18-61DAFB?logo=react)
+![MySQL](https://img.shields.io/badge/MySQL-8.0-orange?logo=mysql)
+![Google Gemini](https://img.shields.io/badge/AI-Google%20Gemini-blueviolet)
 
-\<p align="center">   \<a href="[https://github.com/Yashwanth-12-yash/helpdesk-it-support-system](https://github.com/Yashwanth-12-yash/helpdesk-it-support-system)">GitHub Repository\</a> \</p>
+[GitHub Repository](https://github.com/Yashwanth-12-yash/helpdesk-it-support-system)
 
 ---
 
@@ -21,14 +25,12 @@ The application is built using Django REST Framework, React, MySQL, and modern b
 ## ✨ Key Features
 
 ### 🎫 Ticket Management
-
 - Create, update, assign, and track support tickets.
 - Manage ticket priorities and statuses.
 - View ticket details and activity.
 - Support ticket lifecycle management.
 
 ### 👥 User Roles & Access Control
-
 - Role-based access control (RBAC).
 - Four user roles:
   - ADMIN
@@ -38,42 +40,35 @@ The application is built using Django REST Framework, React, MySQL, and modern b
 - Department- and team-based access restrictions.
 
 ### 🏢 Department & Team Management
-
 - Create and manage departments.
 - Organize support engineers into teams.
 - Assign tickets according to organizational structure.
 
 ### 💬 Comments & Attachments
-
 - Public and internal ticket comments.
 - Upload and manage ticket attachments.
 - Maintain communication between employees and support teams.
 
 ### ⏱️ SLA Management
-
 - Configure service-level agreements.
 - Monitor ticket response and resolution deadlines.
 - Support SLA tracking and escalation workflows.
 
 ### 🤖 AI-Powered Assistance
-
 - Google Gemini API integration.
 - AI-assisted support responses.
 - AI functionality integrated into the HelpDesk workflow.
 
 ### 📚 Knowledge Base
-
 - Maintain support articles and resources.
 - Provide reusable information for common technical issues.
 
 ### 🔔 Notifications
-
 - Ticket-related notifications.
 - Email notification functionality.
 - Background task processing with Celery.
 
 ### 📊 Analytics & Audit Logs
-
 - Support activity analytics.
 - Track important system operations.
 - Maintain audit records for accountability.
@@ -82,20 +77,20 @@ The application is built using Django REST Framework, React, MySQL, and modern b
 
 ## 🛠️ Technology Stack
 
-| Category                 | Technologies                  |
-| ------------------------ | ----------------------------- |
-| Frontend                 | React 18, JavaScript, Vite    |
-| Styling                  | Tailwind CSS                  |
-| Backend                  | Python, Django 5.1.4          |
-| API                      | Django REST Framework         |
-| Authentication           | JWT, Simple JWT               |
-| Database                 | MySQL 8                       |
-| AI Integration           | Google Gemini API             |
-| Background Tasks         | Celery, Redis                 |
-| API Documentation        | drf-spectacular, OpenAPI      |
-| Testing                  | Pytest                        |
+| Category | Technologies |
+|---|---|
+| Frontend | React 18, JavaScript, Vite |
+| Styling | Tailwind CSS |
+| Backend | Python, Django 5.1.4 |
+| API | Django REST Framework |
+| Authentication | JWT, Simple JWT |
+| Database | MySQL 8 |
+| AI Integration | Google Gemini API |
+| Background Tasks | Celery, Redis |
+| API Documentation | drf-spectacular, OpenAPI |
+| Testing | Pytest |
 | Deployment Configuration | Docker, Docker Compose, Nginx |
-| Version Control          | Git, GitHub                   |
+| Version Control | Git, GitHub |
 
 ---
 
@@ -197,7 +192,7 @@ cd helpdesk-it-support-system
 
 ### 2. Backend Setup
 
-Open a terminal in the project root.
+Navigate to the backend directory:
 
 ```bash
 cd backend
@@ -223,7 +218,7 @@ pip install -r requirements/development.txt
 
 ### 3. Configure Environment Variables
 
-Create your local environment file using the example:
+Create your local environment file:
 
 ```cmd
 copy .env.example .env
@@ -275,7 +270,7 @@ http://127.0.0.1:8000/
 
 ### 6. Frontend Setup
 
-Open another terminal:
+Open another terminal and navigate to the frontend directory:
 
 ```bash
 cd frontend
@@ -336,15 +331,13 @@ When the backend is running, check the configured API documentation routes:
 - Swagger UI: `/api/docs/`
 - OpenAPI schema: `/api/schema/`
 
-The exact availability depends on the backend URL configuration.
-
 ---
 
 ## 🐳 Docker
 
 The repository includes Docker and Docker Compose configuration for containerized application setup.
 
-Review `docker-compose.yml` and the environment configuration before starting the services.
+Validate the Docker Compose configuration:
 
 ```bash
 docker compose config
@@ -388,8 +381,6 @@ Never commit production secrets, API keys, database passwords, or private creden
 
 ## 🎯 What This Project Demonstrates
 
-This project demonstrates practical experience in:
-
 - Full-stack web application development.
 - REST API development using Django REST Framework.
 - React frontend integration.
@@ -408,9 +399,11 @@ This project demonstrates practical experience in:
 
 Python Full Stack Developer | AI/ML Enthusiast
 
-- GitHub: [https://github.com/Yashwanth-12-yash](https://github.com/Yashwanth-12-yash)
-- LinkedIn: [https://www.linkedin.com/in/yashwanthk2004/](https://www.linkedin.com/in/yashwanthk2004/)
+- GitHub: [Yashwanth-12-yash](https://github.com/Yashwanth-12-yash)
+- LinkedIn: [Yashwanth K](https://www.linkedin.com/in/yashwanthk2004/)
 
 ---
 
-\<p align="center">   \<strong>Built to make IT support management more organized, efficient, and intelligent.\</strong> \</p>
+<p align="center">
+  <strong>Built to make IT support management more organized, efficient, and intelligent.</strong>
+</p>
