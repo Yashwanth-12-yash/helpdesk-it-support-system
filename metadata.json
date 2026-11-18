@@ -1,0 +1,6 @@
+{
+  "name": "HelpDesk - IT Support & Ticket Management System",
+  "description": "Enterprise IT support and ticket management platform with SLA tracking, RBAC, analytics, knowledge base, and Gemini AI assistance.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

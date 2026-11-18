@@ -1,0 +1,3851 @@
+openapi: 3.0.3
+info:
+  title: HelpDesk Enterprise IT Support API
+  version: 1.0.0
+  description: Versioned REST API for IT ticket management, SLA tracking, analytics,
+    knowledge base, and Gemini AI assistance.
+paths:
+  /api/v1/ai/classify-ticket/:
+    post:
+      operationId: api_v1_ai_classify_ticket_create
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ClassifyTicketInputRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ClassifyTicketInputRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ClassifyTicketInputRequest'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+  /api/v1/ai/similar-tickets/:
+    post:
+      operationId: api_v1_ai_similar_tickets_create
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TicketIdInputRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TicketIdInputRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TicketIdInputRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+  /api/v1/ai/suggest-solutions/:
+    post:
+      operationId: api_v1_ai_suggest_solutions_create
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TicketIdInputRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TicketIdInputRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TicketIdInputRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+  /api/v1/ai/summarize-ticket/:
+    post:
+      operationId: api_v1_ai_summarize_ticket_create
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TicketIdInputRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TicketIdInputRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TicketIdInputRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+  /api/v1/analytics/dashboard/:
+    get:
+      operationId: api_v1_analytics_dashboard_retrieve
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+  /api/v1/analytics/export-csv/:
+    get:
+      operationId: api_v1_analytics_export_csv_retrieve
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/v1/analytics/performance/:
+    get:
+      operationId: api_v1_analytics_performance_retrieve
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+                description: Unspecified response body
+          description: ''
+  /api/v1/attachments/{id}/download/:
+    get:
+      operationId: api_v1_attachments_download_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/v1/audit-logs/:
+    get:
+      operationId: api_v1_audit_logs_list
+      parameters:
+      - in: query
+        name: action
+        schema:
+          type: string
+      - in: query
+        name: actor
+        schema:
+          type: integer
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - in: query
+        name: resource_type
+        schema:
+          type: string
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedAuditLogList'
+          description: ''
+  /api/v1/audit-logs/{id}/:
+    get:
+      operationId: api_v1_audit_logs_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this audit log.
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuditLog'
+          description: ''
+  /api/v1/auth/change-password/:
+    post:
+      operationId: api_v1_auth_change_password_create
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChangePasswordRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ChangePasswordRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ChangePasswordRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+  /api/v1/auth/login/:
+    post:
+      operationId: api_v1_auth_login_create
+      description: |-
+        Takes a set of user credentials and returns an access and refresh JSON web
+        token pair to prove the authentication of those credentials.
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomTokenObtainPairRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CustomTokenObtainPairRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CustomTokenObtainPairRequest'
+        required: true
+      security:
+      - {}
+      responses:
+        '200':
+          description: No response body
+  /api/v1/auth/logout/:
+    post:
+      operationId: api_v1_auth_logout_create
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LogoutRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/LogoutRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/LogoutRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '205':
+          description: No response body
+  /api/v1/auth/me/:
+    get:
+      operationId: api_v1_auth_me_retrieve
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: ''
+    patch:
+      operationId: api_v1_auth_me_partial_update
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedProfileUpdateRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedProfileUpdateRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedProfileUpdateRequest'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: ''
+  /api/v1/auth/password-reset/:
+    post:
+      operationId: api_v1_auth_password_reset_create
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PasswordResetRequestRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PasswordResetRequestRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PasswordResetRequestRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+  /api/v1/auth/password-reset-confirm/:
+    post:
+      operationId: api_v1_auth_password_reset_confirm_create
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PasswordResetConfirmRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PasswordResetConfirmRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PasswordResetConfirmRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+  /api/v1/auth/refresh/:
+    post:
+      operationId: api_v1_auth_refresh_create
+      description: |-
+        Takes a refresh type JSON web token and returns an access type JSON web
+        token if the refresh token is valid.
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TokenRefreshRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TokenRefreshRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TokenRefreshRequest'
+        required: true
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenRefresh'
+          description: ''
+  /api/v1/departments/:
+    get:
+      operationId: api_v1_departments_list
+      parameters:
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedDepartmentList'
+          description: ''
+    post:
+      operationId: api_v1_departments_create
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DepartmentWriteRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/DepartmentWriteRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/DepartmentWriteRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DepartmentWrite'
+          description: ''
+  /api/v1/departments/{id}/:
+    get:
+      operationId: api_v1_departments_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Department'
+          description: ''
+    patch:
+      operationId: api_v1_departments_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedDepartmentWriteRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedDepartmentWriteRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedDepartmentWriteRequest'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DepartmentWrite'
+          description: ''
+  /api/v1/health/:
+    get:
+      operationId: api_v1_health_retrieve
+      description: Checks connectivity to MySQL 8 database and Redis cache.
+      summary: System Health Check
+      tags:
+      - api
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+        '503':
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+  /api/v1/knowledge/:
+    get:
+      operationId: api_v1_knowledge_list
+      parameters:
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedKnowledgeArticleList'
+          description: ''
+    post:
+      operationId: api_v1_knowledge_create
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/KnowledgeArticleWriteRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/KnowledgeArticleWriteRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/KnowledgeArticleWriteRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/KnowledgeArticleWrite'
+          description: ''
+  /api/v1/knowledge/{id}/:
+    get:
+      operationId: api_v1_knowledge_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/KnowledgeArticle'
+          description: ''
+    patch:
+      operationId: api_v1_knowledge_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedKnowledgeArticleWriteRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedKnowledgeArticleWriteRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedKnowledgeArticleWriteRequest'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/KnowledgeArticleWrite'
+          description: ''
+  /api/v1/knowledge/{id}/archive/:
+    post:
+      operationId: api_v1_knowledge_archive_create
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/KnowledgeArticle'
+          description: ''
+  /api/v1/knowledge/{id}/publish/:
+    post:
+      operationId: api_v1_knowledge_publish_create
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/KnowledgeArticle'
+          description: ''
+  /api/v1/knowledge/recommend/:
+    get:
+      operationId: api_v1_knowledge_recommend_list
+      parameters:
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedKnowledgeArticleList'
+          description: ''
+  /api/v1/notifications/:
+    get:
+      operationId: api_v1_notifications_list
+      parameters:
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedNotificationList'
+          description: ''
+  /api/v1/notifications/{id}/:
+    get:
+      operationId: api_v1_notifications_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Notification'
+          description: ''
+  /api/v1/notifications/{id}/read/:
+    post:
+      operationId: api_v1_notifications_read_create
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Notification'
+          description: ''
+  /api/v1/notifications/read-all/:
+    post:
+      operationId: api_v1_notifications_read_all_create
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+  /api/v1/notifications/unread-count/:
+    get:
+      operationId: api_v1_notifications_unread_count_retrieve
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+  /api/v1/sla/escalations/:
+    get:
+      operationId: api_v1_sla_escalations_list
+      parameters:
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedEscalationList'
+          description: ''
+  /api/v1/sla/escalations/{id}/:
+    get:
+      operationId: api_v1_sla_escalations_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Escalation'
+          description: ''
+  /api/v1/sla/escalations/{id}/acknowledge/:
+    post:
+      operationId: api_v1_sla_escalations_acknowledge_create
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Escalation'
+          description: ''
+  /api/v1/sla/overview/:
+    get:
+      operationId: api_v1_sla_overview_retrieve
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+  /api/v1/sla/policies/:
+    get:
+      operationId: api_v1_sla_policies_list
+      parameters:
+      - in: query
+        name: department
+        schema:
+          type: integer
+      - in: query
+        name: is_active
+        schema:
+          type: boolean
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - in: query
+        name: priority
+        schema:
+          type: string
+          enum:
+          - CRITICAL
+          - HIGH
+          - LOW
+          - MEDIUM
+        description: |-
+          * `LOW` - Low
+          * `MEDIUM` - Medium
+          * `HIGH` - High
+          * `CRITICAL` - Critical
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedSLAPolicyList'
+          description: ''
+    post:
+      operationId: api_v1_sla_policies_create
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SLAPolicyRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/SLAPolicyRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/SLAPolicyRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SLAPolicy'
+          description: ''
+  /api/v1/sla/policies/{id}/:
+    get:
+      operationId: api_v1_sla_policies_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this sla policy.
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SLAPolicy'
+          description: ''
+    patch:
+      operationId: api_v1_sla_policies_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this sla policy.
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedSLAPolicyRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedSLAPolicyRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedSLAPolicyRequest'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SLAPolicy'
+          description: ''
+  /api/v1/teams/:
+    get:
+      operationId: api_v1_teams_list
+      parameters:
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedSupportTeamList'
+          description: ''
+    post:
+      operationId: api_v1_teams_create
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SupportTeamWriteRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/SupportTeamWriteRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/SupportTeamWriteRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SupportTeamWrite'
+          description: ''
+  /api/v1/teams/{id}/:
+    get:
+      operationId: api_v1_teams_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SupportTeam'
+          description: ''
+    patch:
+      operationId: api_v1_teams_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedSupportTeamWriteRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedSupportTeamWriteRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedSupportTeamWriteRequest'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SupportTeamWrite'
+          description: ''
+    delete:
+      operationId: api_v1_teams_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/v1/teams/{id}/members/:
+    get:
+      operationId: api_v1_teams_members_list
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedTeamMembershipList'
+          description: ''
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TeamMembership'
+          description: ''
+    post:
+      operationId: api_v1_teams_members_create
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TeamMembershipWriteRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TeamMembershipWriteRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TeamMembershipWriteRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedTeamMembershipList'
+          description: ''
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TeamMembership'
+          description: ''
+  /api/v1/teams/{id}/members/{user_id}/:
+    delete:
+      operationId: api_v1_teams_members_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      - in: path
+        name: user_id
+        schema:
+          type: string
+          pattern: ^\d+$
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/v1/tickets/:
+    get:
+      operationId: api_v1_tickets_list
+      parameters:
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedTicketListList'
+          description: ''
+    post:
+      operationId: api_v1_tickets_create
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TicketCreateRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TicketCreateRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TicketCreateRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TicketCreate'
+          description: ''
+  /api/v1/tickets/{id}/:
+    get:
+      operationId: api_v1_tickets_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TicketDetail'
+          description: ''
+    patch:
+      operationId: api_v1_tickets_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedTicketUpdateRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedTicketUpdateRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedTicketUpdateRequest'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TicketUpdate'
+          description: ''
+  /api/v1/tickets/{id}/assign/:
+    post:
+      operationId: api_v1_tickets_assign_create
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TicketAssignRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TicketAssignRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TicketAssignRequest'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TicketDetail'
+          description: ''
+  /api/v1/tickets/{id}/change-status/:
+    post:
+      operationId: api_v1_tickets_change_status_create
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TicketStatusChangeRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TicketStatusChangeRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TicketStatusChangeRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TicketDetail'
+          description: ''
+  /api/v1/tickets/{id}/escalate/:
+    post:
+      operationId: api_v1_tickets_escalate_create
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ManualEscalationRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ManualEscalationRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ManualEscalationRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Escalation'
+          description: ''
+  /api/v1/tickets/{id}/history/:
+    get:
+      operationId: api_v1_tickets_history_list
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedTicketHistoryList'
+          description: ''
+  /api/v1/tickets/{id}/reopen/:
+    post:
+      operationId: api_v1_tickets_reopen_create
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TicketReopenRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TicketReopenRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TicketReopenRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TicketDetail'
+          description: ''
+  /api/v1/tickets/{id}/resolve/:
+    post:
+      operationId: api_v1_tickets_resolve_create
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TicketResolveRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TicketResolveRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TicketResolveRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TicketDetail'
+          description: ''
+  /api/v1/tickets/{ticket_id}/attachments/:
+    get:
+      operationId: api_v1_tickets_attachments_list
+      parameters:
+      - in: path
+        name: ticket_id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TicketAttachment'
+          description: ''
+    post:
+      operationId: api_v1_tickets_attachments_create
+      parameters:
+      - in: path
+        name: ticket_id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TicketAttachmentUploadRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TicketAttachmentUploadRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TicketAttachment'
+          description: ''
+  /api/v1/tickets/{ticket_id}/comments/:
+    get:
+      operationId: api_v1_tickets_comments_list
+      parameters:
+      - in: path
+        name: ticket_id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TicketComment'
+          description: ''
+    post:
+      operationId: api_v1_tickets_comments_create
+      parameters:
+      - in: path
+        name: ticket_id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TicketCommentCreateRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TicketCommentCreateRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TicketCommentCreateRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TicketComment'
+          description: ''
+  /api/v1/users/:
+    get:
+      operationId: api_v1_users_list
+      description: Enterprise user management ViewSet with RBAC enforcement.
+      parameters:
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedUserList'
+          description: ''
+    post:
+      operationId: api_v1_users_create
+      description: Enterprise user management ViewSet with RBAC enforcement.
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserCreateRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/UserCreateRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/UserCreateRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserCreate'
+          description: ''
+  /api/v1/users/{id}/:
+    get:
+      operationId: api_v1_users_retrieve
+      description: Enterprise user management ViewSet with RBAC enforcement.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: ''
+    patch:
+      operationId: api_v1_users_partial_update
+      description: Enterprise user management ViewSet with RBAC enforcement.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedUserUpdateRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedUserUpdateRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedUserUpdateRequest'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserUpdate'
+          description: ''
+  /api/v1/users/{id}/toggle-active/:
+    post:
+      operationId: api_v1_users_toggle_active_create
+      description: Enterprise user management ViewSet with RBAC enforcement.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: ''
+components:
+  schemas:
+    AuditLog:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        actor:
+          type: integer
+          readOnly: true
+          nullable: true
+        actor_email:
+          type: string
+          readOnly: true
+        action:
+          type: string
+          readOnly: true
+        resource_type:
+          type: string
+          readOnly: true
+        resource_id:
+          type: string
+          readOnly: true
+        ip_address:
+          type: string
+          readOnly: true
+          nullable: true
+        user_agent:
+          type: string
+          readOnly: true
+        metadata:
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - action
+      - actor
+      - actor_email
+      - created_at
+      - id
+      - ip_address
+      - metadata
+      - resource_id
+      - resource_type
+      - user_agent
+    CategoryEnum:
+      enum:
+      - HARDWARE
+      - SOFTWARE
+      - NETWORK
+      - ACCESS
+      - EMAIL
+      - SECURITY
+      - OTHER
+      type: string
+      description: |-
+        * `HARDWARE` - Hardware
+        * `SOFTWARE` - Software
+        * `NETWORK` - Network & VPN
+        * `ACCESS` - Access & Identity
+        * `EMAIL` - Email & Collaboration
+        * `SECURITY` - Security Incident
+        * `OTHER` - Other
+    ChangePasswordRequest:
+      type: object
+      properties:
+        old_password:
+          type: string
+          writeOnly: true
+          minLength: 1
+        new_password:
+          type: string
+          writeOnly: true
+          minLength: 10
+      required:
+      - new_password
+      - old_password
+    ClassifyTicketInputRequest:
+      type: object
+      properties:
+        ticket_id:
+          type: integer
+          nullable: true
+        title:
+          type: string
+          maxLength: 255
+        description:
+          type: string
+    CustomTokenObtainPairRequest:
+      type: object
+      properties:
+        email:
+          type: string
+          writeOnly: true
+          minLength: 1
+        password:
+          type: string
+          writeOnly: true
+          minLength: 1
+      required:
+      - email
+      - password
+    Department:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 120
+        code:
+          type: string
+          maxLength: 20
+        description:
+          type: string
+        manager:
+          type: integer
+          nullable: true
+        manager_detail:
+          allOf:
+          - $ref: '#/components/schemas/UserSummary'
+          readOnly: true
+        team_count:
+          type: integer
+          readOnly: true
+          default: 0
+        is_active:
+          type: boolean
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - code
+      - created_at
+      - id
+      - manager_detail
+      - name
+      - team_count
+      - updated_at
+    DepartmentSummary:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          readOnly: true
+        code:
+          type: string
+          readOnly: true
+        is_active:
+          type: boolean
+          readOnly: true
+      required:
+      - code
+      - id
+      - is_active
+      - name
+    DepartmentWrite:
+      type: object
+      properties:
+        name:
+          type: string
+          maxLength: 120
+        code:
+          type: string
+          maxLength: 20
+        description:
+          type: string
+        manager:
+          type: integer
+          nullable: true
+        is_active:
+          type: boolean
+      required:
+      - code
+      - name
+    DepartmentWriteRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 120
+        code:
+          type: string
+          minLength: 1
+          maxLength: 20
+        description:
+          type: string
+        manager:
+          type: integer
+          nullable: true
+        is_active:
+          type: boolean
+      required:
+      - code
+      - name
+    Escalation:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        ticket:
+          type: integer
+          readOnly: true
+        ticket_number:
+          type: string
+          readOnly: true
+        ticket_title:
+          type: string
+          readOnly: true
+        escalation_type:
+          allOf:
+          - $ref: '#/components/schemas/EscalationTypeEnum'
+          readOnly: true
+        escalated_from:
+          type: integer
+          readOnly: true
+          nullable: true
+        escalated_from_detail:
+          allOf:
+          - $ref: '#/components/schemas/UserSummary'
+          readOnly: true
+        escalated_to:
+          type: integer
+          readOnly: true
+          nullable: true
+        escalated_to_detail:
+          allOf:
+          - $ref: '#/components/schemas/UserSummary'
+          readOnly: true
+        reason:
+          type: string
+          readOnly: true
+        is_acknowledged:
+          type: boolean
+          readOnly: true
+        acknowledged_by:
+          type: integer
+          readOnly: true
+          nullable: true
+        acknowledged_by_detail:
+          allOf:
+          - $ref: '#/components/schemas/UserSummary'
+          readOnly: true
+        acknowledged_at:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - acknowledged_at
+      - acknowledged_by
+      - acknowledged_by_detail
+      - created_at
+      - escalated_from
+      - escalated_from_detail
+      - escalated_to
+      - escalated_to_detail
+      - escalation_type
+      - id
+      - is_acknowledged
+      - reason
+      - ticket
+      - ticket_number
+      - ticket_title
+    EscalationTypeEnum:
+      enum:
+      - RESPONSE_BREACH
+      - RESOLUTION_BREACH
+      - MANUAL
+      type: string
+      description: |-
+        * `RESPONSE_BREACH` - Response SLA Breach
+        * `RESOLUTION_BREACH` - Resolution SLA Breach
+        * `MANUAL` - Manual Escalation
+    EventTypeEnum:
+      enum:
+      - TICKET_CREATED
+      - TICKET_ASSIGNED
+      - TICKET_REASSIGNED
+      - STATUS_CHANGED
+      - COMMENT_ADDED
+      - SLA_WARNING
+      - SLA_BREACHED
+      - TICKET_RESOLVED
+      - TICKET_REOPENED
+      - ESCALATED
+      type: string
+      description: |-
+        * `TICKET_CREATED` - Ticket Created
+        * `TICKET_ASSIGNED` - Ticket Assigned
+        * `TICKET_REASSIGNED` - Ticket Reassigned
+        * `STATUS_CHANGED` - Status Changed
+        * `COMMENT_ADDED` - Comment Added
+        * `SLA_WARNING` - SLA Approaching Deadline
+        * `SLA_BREACHED` - SLA Breached
+        * `TICKET_RESOLVED` - Ticket Resolved
+        * `TICKET_REOPENED` - Ticket Reopened
+        * `ESCALATED` - Ticket Escalated
+    KnowledgeArticle:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        title:
+          type: string
+          maxLength: 255
+        slug:
+          type: string
+          readOnly: true
+          pattern: ^[-a-zA-Z0-9_]+$
+        category:
+          $ref: '#/components/schemas/CategoryEnum'
+        summary:
+          type: string
+        content:
+          type: string
+        troubleshooting_steps:
+          type: string
+        keywords: {}
+        status:
+          $ref: '#/components/schemas/Status0b2Enum'
+        author:
+          type: integer
+          readOnly: true
+        author_detail:
+          allOf:
+          - $ref: '#/components/schemas/UserSummary'
+          readOnly: true
+        published_by:
+          type: integer
+          readOnly: true
+          nullable: true
+        published_by_detail:
+          allOf:
+          - $ref: '#/components/schemas/UserSummary'
+          readOnly: true
+        published_at:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+        view_count:
+          type: integer
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - author
+      - author_detail
+      - content
+      - created_at
+      - id
+      - published_at
+      - published_by
+      - published_by_detail
+      - slug
+      - title
+      - updated_at
+      - view_count
+    KnowledgeArticleWrite:
+      type: object
+      properties:
+        title:
+          type: string
+          maxLength: 255
+        category:
+          $ref: '#/components/schemas/CategoryEnum'
+        summary:
+          type: string
+        content:
+          type: string
+        troubleshooting_steps:
+          type: string
+        keywords: {}
+        status:
+          $ref: '#/components/schemas/Status0b2Enum'
+      required:
+      - content
+      - title
+    KnowledgeArticleWriteRequest:
+      type: object
+      properties:
+        title:
+          type: string
+          minLength: 1
+          maxLength: 255
+        category:
+          $ref: '#/components/schemas/CategoryEnum'
+        summary:
+          type: string
+        content:
+          type: string
+          minLength: 1
+        troubleshooting_steps:
+          type: string
+        keywords: {}
+        status:
+          $ref: '#/components/schemas/Status0b2Enum'
+      required:
+      - content
+      - title
+    LogoutRequest:
+      type: object
+      properties:
+        refresh:
+          type: string
+          minLength: 1
+      required:
+      - refresh
+    ManualEscalationRequest:
+      type: object
+      properties:
+        reason:
+          type: string
+          minLength: 5
+          maxLength: 1000
+        escalated_to:
+          type: integer
+          nullable: true
+      required:
+      - reason
+    Notification:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        ticket:
+          type: integer
+          readOnly: true
+          nullable: true
+        ticket_number:
+          type: string
+          readOnly: true
+        event_type:
+          allOf:
+          - $ref: '#/components/schemas/EventTypeEnum'
+          readOnly: true
+        title:
+          type: string
+          readOnly: true
+        message:
+          type: string
+          readOnly: true
+        is_read:
+          type: boolean
+          readOnly: true
+        read_at:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+        email_sent:
+          type: boolean
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - created_at
+      - email_sent
+      - event_type
+      - id
+      - is_read
+      - message
+      - read_at
+      - ticket
+      - ticket_number
+      - title
+    PaginatedAuditLogList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/AuditLog'
+    PaginatedDepartmentList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Department'
+    PaginatedEscalationList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Escalation'
+    PaginatedKnowledgeArticleList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/KnowledgeArticle'
+    PaginatedNotificationList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Notification'
+    PaginatedSLAPolicyList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/SLAPolicy'
+    PaginatedSupportTeamList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/SupportTeam'
+    PaginatedTeamMembershipList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/TeamMembership'
+    PaginatedTicketHistoryList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/TicketHistory'
+    PaginatedTicketListList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/TicketList'
+    PaginatedUserList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/User'
+    PasswordResetConfirmRequest:
+      type: object
+      properties:
+        uid:
+          type: string
+          minLength: 1
+        token:
+          type: string
+          minLength: 1
+        new_password:
+          type: string
+          writeOnly: true
+          minLength: 10
+      required:
+      - new_password
+      - token
+      - uid
+    PasswordResetRequestRequest:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+          minLength: 1
+      required:
+      - email
+    PatchedDepartmentWriteRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 120
+        code:
+          type: string
+          minLength: 1
+          maxLength: 20
+        description:
+          type: string
+        manager:
+          type: integer
+          nullable: true
+        is_active:
+          type: boolean
+    PatchedKnowledgeArticleWriteRequest:
+      type: object
+      properties:
+        title:
+          type: string
+          minLength: 1
+          maxLength: 255
+        category:
+          $ref: '#/components/schemas/CategoryEnum'
+        summary:
+          type: string
+        content:
+          type: string
+          minLength: 1
+        troubleshooting_steps:
+          type: string
+        keywords: {}
+        status:
+          $ref: '#/components/schemas/Status0b2Enum'
+    PatchedProfileUpdateRequest:
+      type: object
+      properties:
+        first_name:
+          type: string
+          minLength: 1
+          maxLength: 100
+        last_name:
+          type: string
+          minLength: 1
+          maxLength: 100
+        job_title:
+          type: string
+          maxLength: 120
+        phone:
+          type: string
+          maxLength: 30
+    PatchedSLAPolicyRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 120
+        priority:
+          $ref: '#/components/schemas/PriorityEnum'
+        department:
+          type: integer
+          nullable: true
+        first_response_minutes:
+          type: integer
+          maximum: 4294967295
+          minimum: 0
+          format: int64
+        resolution_minutes:
+          type: integer
+          maximum: 4294967295
+          minimum: 0
+          format: int64
+        escalation_threshold_pct:
+          type: integer
+          maximum: 65535
+          minimum: 0
+        business_hours_only:
+          type: boolean
+        business_start_time:
+          type: string
+          format: time
+        business_end_time:
+          type: string
+          format: time
+        working_days: {}
+        is_active:
+          type: boolean
+    PatchedSupportTeamWriteRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 120
+        department:
+          type: integer
+        lead:
+          type: integer
+          nullable: true
+        description:
+          type: string
+        is_active:
+          type: boolean
+    PatchedTicketUpdateRequest:
+      type: object
+      properties:
+        title:
+          type: string
+          minLength: 1
+          maxLength: 255
+        description:
+          type: string
+          minLength: 1
+        category:
+          $ref: '#/components/schemas/CategoryEnum'
+        priority:
+          $ref: '#/components/schemas/PriorityEnum'
+        department:
+          type: integer
+        support_team:
+          type: integer
+          nullable: true
+    PatchedUserUpdateRequest:
+      type: object
+      properties:
+        first_name:
+          type: string
+          minLength: 1
+          maxLength: 100
+        last_name:
+          type: string
+          minLength: 1
+          maxLength: 100
+        role:
+          $ref: '#/components/schemas/RoleEnum'
+        job_title:
+          type: string
+          maxLength: 120
+        phone:
+          type: string
+          maxLength: 30
+        department:
+          type: integer
+          nullable: true
+        is_active:
+          type: boolean
+    PriorityEnum:
+      enum:
+      - LOW
+      - MEDIUM
+      - HIGH
+      - CRITICAL
+      type: string
+      description: |-
+        * `LOW` - Low
+        * `MEDIUM` - Medium
+        * `HIGH` - High
+        * `CRITICAL` - Critical
+    RoleEnum:
+      enum:
+      - ADMIN
+      - MANAGER
+      - ENGINEER
+      - EMPLOYEE
+      type: string
+      description: |-
+        * `ADMIN` - Administrator
+        * `MANAGER` - Manager
+        * `ENGINEER` - Support Engineer
+        * `EMPLOYEE` - Employee
+    SLAPolicy:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 120
+        priority:
+          $ref: '#/components/schemas/PriorityEnum'
+        department:
+          type: integer
+          nullable: true
+        department_name:
+          type: string
+          readOnly: true
+        first_response_minutes:
+          type: integer
+          maximum: 4294967295
+          minimum: 0
+          format: int64
+        resolution_minutes:
+          type: integer
+          maximum: 4294967295
+          minimum: 0
+          format: int64
+        escalation_threshold_pct:
+          type: integer
+          maximum: 65535
+          minimum: 0
+        business_hours_only:
+          type: boolean
+        business_start_time:
+          type: string
+          format: time
+        business_end_time:
+          type: string
+          format: time
+        working_days: {}
+        is_active:
+          type: boolean
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - created_at
+      - department
+      - department_name
+      - first_response_minutes
+      - id
+      - name
+      - priority
+      - resolution_minutes
+      - updated_at
+    SLAPolicyRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 120
+        priority:
+          $ref: '#/components/schemas/PriorityEnum'
+        department:
+          type: integer
+          nullable: true
+        first_response_minutes:
+          type: integer
+          maximum: 4294967295
+          minimum: 0
+          format: int64
+        resolution_minutes:
+          type: integer
+          maximum: 4294967295
+          minimum: 0
+          format: int64
+        escalation_threshold_pct:
+          type: integer
+          maximum: 65535
+          minimum: 0
+        business_hours_only:
+          type: boolean
+        business_start_time:
+          type: string
+          format: time
+        business_end_time:
+          type: string
+          format: time
+        working_days: {}
+        is_active:
+          type: boolean
+      required:
+      - department
+      - first_response_minutes
+      - name
+      - priority
+      - resolution_minutes
+    Status0b2Enum:
+      enum:
+      - DRAFT
+      - PUBLISHED
+      - ARCHIVED
+      type: string
+      description: |-
+        * `DRAFT` - Draft
+        * `PUBLISHED` - Published
+        * `ARCHIVED` - Archived
+    Status769Enum:
+      enum:
+      - OPEN
+      - ASSIGNED
+      - IN_PROGRESS
+      - ON_HOLD
+      - RESOLVED
+      - CLOSED
+      - REOPENED
+      type: string
+      description: |-
+        * `OPEN` - Open
+        * `ASSIGNED` - Assigned
+        * `IN_PROGRESS` - In Progress
+        * `ON_HOLD` - On Hold
+        * `RESOLVED` - Resolved
+        * `CLOSED` - Closed
+        * `REOPENED` - Reopened
+    SupportTeam:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 120
+        department:
+          type: integer
+        department_detail:
+          allOf:
+          - $ref: '#/components/schemas/DepartmentSummary'
+          readOnly: true
+        lead:
+          type: integer
+          nullable: true
+        lead_detail:
+          allOf:
+          - $ref: '#/components/schemas/UserSummary'
+          readOnly: true
+        description:
+          type: string
+        is_active:
+          type: boolean
+        members:
+          type: array
+          items:
+            $ref: '#/components/schemas/TeamMembership'
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - created_at
+      - department
+      - department_detail
+      - id
+      - lead_detail
+      - members
+      - name
+      - updated_at
+    SupportTeamSummary:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          readOnly: true
+        department:
+          type: integer
+          readOnly: true
+        is_active:
+          type: boolean
+          readOnly: true
+      required:
+      - department
+      - id
+      - is_active
+      - name
+    SupportTeamWrite:
+      type: object
+      properties:
+        name:
+          type: string
+          maxLength: 120
+        department:
+          type: integer
+        lead:
+          type: integer
+          nullable: true
+        description:
+          type: string
+        is_active:
+          type: boolean
+      required:
+      - department
+      - name
+    SupportTeamWriteRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 120
+        department:
+          type: integer
+        lead:
+          type: integer
+          nullable: true
+        description:
+          type: string
+        is_active:
+          type: boolean
+      required:
+      - department
+      - name
+    TeamMembership:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        user:
+          allOf:
+          - $ref: '#/components/schemas/UserSummary'
+          readOnly: true
+        is_primary:
+          type: boolean
+          readOnly: true
+        joined_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - id
+      - is_primary
+      - joined_at
+      - user
+    TeamMembershipWriteRequest:
+      type: object
+      properties:
+        user:
+          type: integer
+        is_primary:
+          type: boolean
+          default: false
+      required:
+      - user
+    TicketAssignRequest:
+      type: object
+      properties:
+        assigned_engineer:
+          type: integer
+          nullable: true
+        support_team:
+          type: integer
+          nullable: true
+        note:
+          type: string
+          default: ''
+    TicketAttachment:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        ticket:
+          type: integer
+          readOnly: true
+        comment:
+          type: integer
+          readOnly: true
+          nullable: true
+        original_filename:
+          type: string
+          readOnly: true
+        content_type:
+          type: string
+          readOnly: true
+        file_size:
+          type: integer
+          readOnly: true
+        uploaded_by:
+          type: integer
+          readOnly: true
+        uploaded_by_detail:
+          allOf:
+          - $ref: '#/components/schemas/UserSummary'
+          readOnly: true
+        download_url:
+          type: string
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - comment
+      - content_type
+      - created_at
+      - download_url
+      - file_size
+      - id
+      - original_filename
+      - ticket
+      - uploaded_by
+      - uploaded_by_detail
+    TicketAttachmentUploadRequest:
+      type: object
+      properties:
+        file:
+          type: string
+          format: binary
+        comment:
+          type: integer
+          nullable: true
+      required:
+      - file
+    TicketComment:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        ticket:
+          type: integer
+          readOnly: true
+        author:
+          type: integer
+          readOnly: true
+        author_detail:
+          allOf:
+          - $ref: '#/components/schemas/UserSummary'
+          readOnly: true
+        body:
+          type: string
+        is_internal:
+          type: boolean
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - author
+      - author_detail
+      - body
+      - created_at
+      - id
+      - ticket
+      - updated_at
+    TicketCommentCreateRequest:
+      type: object
+      properties:
+        body:
+          type: string
+          minLength: 1
+        is_internal:
+          type: boolean
+          default: false
+      required:
+      - body
+    TicketCreate:
+      type: object
+      properties:
+        title:
+          type: string
+          maxLength: 255
+        description:
+          type: string
+        category:
+          $ref: '#/components/schemas/CategoryEnum'
+        priority:
+          $ref: '#/components/schemas/PriorityEnum'
+        department:
+          type: integer
+        support_team:
+          type: integer
+          nullable: true
+      required:
+      - department
+      - description
+      - title
+    TicketCreateRequest:
+      type: object
+      properties:
+        title:
+          type: string
+          minLength: 1
+          maxLength: 255
+        description:
+          type: string
+          minLength: 1
+        category:
+          $ref: '#/components/schemas/CategoryEnum'
+        priority:
+          $ref: '#/components/schemas/PriorityEnum'
+        department:
+          type: integer
+        support_team:
+          type: integer
+          nullable: true
+      required:
+      - department
+      - description
+      - title
+    TicketDetail:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        ticket_number:
+          type: string
+          maxLength: 20
+        title:
+          type: string
+          maxLength: 255
+        category:
+          $ref: '#/components/schemas/CategoryEnum'
+        priority:
+          $ref: '#/components/schemas/PriorityEnum'
+        status:
+          $ref: '#/components/schemas/Status769Enum'
+        created_by:
+          type: integer
+        created_by_detail:
+          allOf:
+          - $ref: '#/components/schemas/UserSummary'
+          readOnly: true
+        assigned_engineer:
+          type: integer
+          nullable: true
+        assigned_engineer_detail:
+          allOf:
+          - $ref: '#/components/schemas/UserSummary'
+          readOnly: true
+        department:
+          type: integer
+        department_detail:
+          allOf:
+          - $ref: '#/components/schemas/DepartmentSummary'
+          readOnly: true
+        support_team:
+          type: integer
+          nullable: true
+        support_team_detail:
+          allOf:
+          - $ref: '#/components/schemas/SupportTeamSummary'
+          readOnly: true
+        response_deadline:
+          type: string
+          format: date-time
+          nullable: true
+        resolution_deadline:
+          type: string
+          format: date-time
+          nullable: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        description:
+          type: string
+        first_responded_at:
+          type: string
+          format: date-time
+          nullable: true
+        resolved_at:
+          type: string
+          format: date-time
+          nullable: true
+        closed_at:
+          type: string
+          format: date-time
+          nullable: true
+        resolution_notes:
+          type: string
+        reopen_count:
+          type: integer
+          maximum: 4294967295
+          minimum: 0
+          format: int64
+        sla:
+          allOf:
+          - $ref: '#/components/schemas/TicketSLA'
+          readOnly: true
+      required:
+      - assigned_engineer_detail
+      - created_at
+      - created_by
+      - created_by_detail
+      - department
+      - department_detail
+      - description
+      - id
+      - sla
+      - support_team_detail
+      - ticket_number
+      - title
+      - updated_at
+    TicketHistory:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        action_type:
+          type: string
+          readOnly: true
+        field_name:
+          type: string
+          readOnly: true
+        old_value:
+          type: string
+          readOnly: true
+        new_value:
+          type: string
+          readOnly: true
+        note:
+          type: string
+          readOnly: true
+        changed_by:
+          type: integer
+          readOnly: true
+          nullable: true
+        changed_by_detail:
+          allOf:
+          - $ref: '#/components/schemas/UserSummary'
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - action_type
+      - changed_by
+      - changed_by_detail
+      - created_at
+      - field_name
+      - id
+      - new_value
+      - note
+      - old_value
+    TicketIdInputRequest:
+      type: object
+      properties:
+        ticket_id:
+          type: integer
+      required:
+      - ticket_id
+    TicketList:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        ticket_number:
+          type: string
+          maxLength: 20
+        title:
+          type: string
+          maxLength: 255
+        category:
+          $ref: '#/components/schemas/CategoryEnum'
+        priority:
+          $ref: '#/components/schemas/PriorityEnum'
+        status:
+          $ref: '#/components/schemas/Status769Enum'
+        created_by:
+          type: integer
+        created_by_detail:
+          allOf:
+          - $ref: '#/components/schemas/UserSummary'
+          readOnly: true
+        assigned_engineer:
+          type: integer
+          nullable: true
+        assigned_engineer_detail:
+          allOf:
+          - $ref: '#/components/schemas/UserSummary'
+          readOnly: true
+        department:
+          type: integer
+        department_detail:
+          allOf:
+          - $ref: '#/components/schemas/DepartmentSummary'
+          readOnly: true
+        support_team:
+          type: integer
+          nullable: true
+        support_team_detail:
+          allOf:
+          - $ref: '#/components/schemas/SupportTeamSummary'
+          readOnly: true
+        response_deadline:
+          type: string
+          format: date-time
+          nullable: true
+        resolution_deadline:
+          type: string
+          format: date-time
+          nullable: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - assigned_engineer_detail
+      - created_at
+      - created_by
+      - created_by_detail
+      - department
+      - department_detail
+      - id
+      - support_team_detail
+      - ticket_number
+      - title
+      - updated_at
+    TicketReopenRequest:
+      type: object
+      properties:
+        reason:
+          type: string
+          minLength: 5
+      required:
+      - reason
+    TicketResolveRequest:
+      type: object
+      properties:
+        resolution_notes:
+          type: string
+          minLength: 5
+      required:
+      - resolution_notes
+    TicketSLA:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        policy:
+          type: integer
+          readOnly: true
+        policy_name:
+          type: string
+          readOnly: true
+        response_due_at:
+          type: string
+          format: date-time
+          readOnly: true
+        resolution_due_at:
+          type: string
+          format: date-time
+          readOnly: true
+        first_response_at:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+        resolved_at:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+        response_breached:
+          type: boolean
+          readOnly: true
+        resolution_breached:
+          type: boolean
+          readOnly: true
+        paused_at:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+        total_paused_seconds:
+          type: integer
+          readOnly: true
+      required:
+      - first_response_at
+      - id
+      - paused_at
+      - policy
+      - policy_name
+      - resolution_breached
+      - resolution_due_at
+      - resolved_at
+      - response_breached
+      - response_due_at
+      - total_paused_seconds
+    TicketStatusChangeRequest:
+      type: object
+      properties:
+        status:
+          $ref: '#/components/schemas/Status769Enum'
+        note:
+          type: string
+          default: ''
+      required:
+      - status
+    TicketUpdate:
+      type: object
+      properties:
+        title:
+          type: string
+          maxLength: 255
+        description:
+          type: string
+        category:
+          $ref: '#/components/schemas/CategoryEnum'
+        priority:
+          $ref: '#/components/schemas/PriorityEnum'
+        department:
+          type: integer
+        support_team:
+          type: integer
+          nullable: true
+      required:
+      - description
+      - title
+    TokenRefresh:
+      type: object
+      properties:
+        access:
+          type: string
+          readOnly: true
+        refresh:
+          type: string
+      required:
+      - access
+      - refresh
+    TokenRefreshRequest:
+      type: object
+      properties:
+        refresh:
+          type: string
+          minLength: 1
+      required:
+      - refresh
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        email:
+          type: string
+          format: email
+          maxLength: 255
+        first_name:
+          type: string
+          maxLength: 100
+        last_name:
+          type: string
+          maxLength: 100
+        full_name:
+          type: string
+          readOnly: true
+        role:
+          $ref: '#/components/schemas/RoleEnum'
+        job_title:
+          type: string
+          maxLength: 120
+        phone:
+          type: string
+          maxLength: 30
+        department:
+          type: integer
+          nullable: true
+        department_name:
+          type: string
+          readOnly: true
+        is_active:
+          type: boolean
+        last_login:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - created_at
+      - department_name
+      - email
+      - first_name
+      - full_name
+      - id
+      - last_login
+      - last_name
+      - updated_at
+    UserCreate:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+          maxLength: 255
+        first_name:
+          type: string
+          maxLength: 100
+        last_name:
+          type: string
+          maxLength: 100
+        role:
+          $ref: '#/components/schemas/RoleEnum'
+        job_title:
+          type: string
+          maxLength: 120
+        phone:
+          type: string
+          maxLength: 30
+        department:
+          type: integer
+          nullable: true
+        is_active:
+          type: boolean
+      required:
+      - email
+      - first_name
+      - last_name
+    UserCreateRequest:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+          minLength: 1
+          maxLength: 255
+        first_name:
+          type: string
+          minLength: 1
+          maxLength: 100
+        last_name:
+          type: string
+          minLength: 1
+          maxLength: 100
+        role:
+          $ref: '#/components/schemas/RoleEnum'
+        job_title:
+          type: string
+          maxLength: 120
+        phone:
+          type: string
+          maxLength: 30
+        department:
+          type: integer
+          nullable: true
+        password:
+          type: string
+          writeOnly: true
+          minLength: 10
+        is_active:
+          type: boolean
+      required:
+      - email
+      - first_name
+      - last_name
+      - password
+    UserSummary:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        email:
+          type: string
+          format: email
+          readOnly: true
+        first_name:
+          type: string
+          readOnly: true
+        last_name:
+          type: string
+          readOnly: true
+        full_name:
+          type: string
+          readOnly: true
+        role:
+          allOf:
+          - $ref: '#/components/schemas/RoleEnum'
+          readOnly: true
+        job_title:
+          type: string
+          readOnly: true
+        department:
+          type: integer
+          readOnly: true
+          nullable: true
+        department_name:
+          type: string
+          readOnly: true
+      required:
+      - department
+      - department_name
+      - email
+      - first_name
+      - full_name
+      - id
+      - job_title
+      - last_name
+      - role
+    UserUpdate:
+      type: object
+      properties:
+        first_name:
+          type: string
+          maxLength: 100
+        last_name:
+          type: string
+          maxLength: 100
+        role:
+          $ref: '#/components/schemas/RoleEnum'
+        job_title:
+          type: string
+          maxLength: 120
+        phone:
+          type: string
+          maxLength: 30
+        department:
+          type: integer
+          nullable: true
+        is_active:
+          type: boolean
+      required:
+      - first_name
+      - last_name
+  securitySchemes:
+    jwtAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

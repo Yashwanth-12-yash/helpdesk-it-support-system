@@ -1,0 +1,102 @@
+name: HelpDesk CI
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+
+jobs:
+  backend-tests:
+    runs-on: ubuntu-latest
+    services:
+      mysql:
+        image: mysql:8.0.40
+        env:
+          MYSQL_ROOT_PASSWORD: root_ci_password
+          MYSQL_DATABASE: helpdesk_db
+          MYSQL_USER: helpdesk_user
+          MYSQL_PASSWORD: helpdesk_ci_password
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping -h localhost -u root -proot_ci_password"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=10
+
+      redis:
+        image: redis:7.4-alpine
+        ports:
+          - 6379:6379
+        options: >-
+          --health-cmd="redis-cli ping"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
+
+    env:
+      DJANGO_SETTINGS_MODULE: config.settings.development
+      DJANGO_SECRET_KEY: ci-test-secret-key-at-least-fifty-characters-long-12345
+      MYSQL_DATABASE: helpdesk_db
+      MYSQL_USER: helpdesk_user
+      MYSQL_PASSWORD: helpdesk_ci_password
+      MYSQL_HOST: 127.0.0.1
+      MYSQL_PORT: 3306
+      REDIS_URL: redis://127.0.0.1:6379/0
+      CELERY_BROKER_URL: redis://127.0.0.1:6379/1
+      CELERY_RESULT_BACKEND: redis://127.0.0.1:6379/2
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: "pip"
+
+      - name: Install system MySQL client libs
+        run: sudo apt-get update && sudo apt-get install -y default-libmysqlclient-dev pkg-config libmagic1
+
+      - name: Grant test DB privileges
+        run: |
+          mysql -h 127.0.0.1 -u root -proot_ci_password -e "GRANT ALL PRIVILEGES ON *.* TO 'helpdesk_user'@'%'; FLUSH PRIVILEGES;"
+
+      - name: Install backend dependencies
+        working-directory: backend
+        run: pip install -r requirements/development.txt
+
+      - name: Django system checks & migrations check
+        working-directory: backend
+        run: |
+          python manage.py check
+          python manage.py makemigrations --check --dry-run
+
+      - name: Run Pytest suite
+        working-directory: backend
+        run: pytest
+
+  frontend-checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "npm"
+          cache-dependency-path: frontend/package-lock.json
+
+      - name: Install frontend dependencies
+        working-directory: frontend
+        run: npm install
+
+      - name: Run ESLint
+        working-directory: frontend
+        run: npm run lint
+
+      - name: Build production bundle
+        working-directory: frontend
+        run: npm run build

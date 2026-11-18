@@ -1,0 +1,33 @@
+node_modules/
+build/
+dist/
+coverage/
+.DS_Store
+*.log
+.env
+backend/.env
+frontend/.env
+!.env.example
+!backend/.env.example
+!frontend/.env.example
+__pycache__/
+*.py[cod]
+venv/
+.venv/
+.pytest_cache/
+backend/media/
+backend/staticfiles/
+
+# Python testing and coverage
+.coverage
+htmlcov/
+
+# IDE settings
+.vscode/
+.idea/
+
+# OS files
+Thumbs.db
+
+# Celery
+celerybeat-schedule
